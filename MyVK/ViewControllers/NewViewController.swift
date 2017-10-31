@@ -9,7 +9,6 @@ enum InfoType {
     case audios
     case gifts
     case docs
-    
 }
 
 class NewViewController: UITableViewController, DataTransferProtocol, UICollectionViewDelegate, UICollectionViewDataSource {
@@ -30,6 +29,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     var user: User!
     var photoArray = [UIImage(named: "fcrk-1"),UIImage(named: "fcrk-2"),UIImage(named: "fcrk-3"), UIImage(named: "fcrk-1"), UIImage(named: "fcrk-1"),UIImage(named: "fcrk-2"),UIImage(named: "fcrk-3"), UIImage(named: "fcrk-1")]
     var news = [News]()
+    var newsId = 4;
     let newsTestImageArray = [UIImage(named: "fcrk-4")!, UIImage(named: "fcrk-5")!, UIImage(named: "fcrk-6")!]
     let types: [InfoType] = [.friends, .followers, .groups, .photos, .videos, .audios, .gifts, .docs]
     
@@ -68,7 +68,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         changeBorder(for: addEntryButton)
         changeBorder(for: addPlaceButton)
         cellRegistration()
-        randomTestNews()
+        createTestNews()
         prepareForDynamicCellSize()
     }
     
@@ -78,15 +78,15 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     }
     
     //MARK: - Test methods
-    func randomTestNews() {
-        let testNews1 = News(name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTestDateArray.count)))], text: "", image: newsTestImageArray[0], numberOfLikes: newsTestLikesArray[0], numberOfComments: newsTestCommentsArray[0], numberOfReposts: newsTestRepostsArray[0], avatar: user.avatar )
-        let testNews2 = News(name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTestDateArray.count)))], text: newsTestTextArray[1], image: nil, numberOfLikes: newsTestLikesArray[1], numberOfComments: newsTestCommentsArray[1], numberOfReposts: newsTestRepostsArray[1], avatar: user.avatar )
-        let testNews3 = News(name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTestDateArray.count)))], text: newsTestTextArray[2], image: newsTestImageArray[2], numberOfLikes: newsTestLikesArray[2], numberOfComments: newsTestCommentsArray[2], numberOfReposts: newsTestRepostsArray[2], avatar: user.avatar )
+    
+    func createTestNews() {
+        let testNews1 = News(id: 1, name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[0], text: "", image: newsTestImageArray[0], numberOfLikes: newsTestLikesArray[0], numberOfComments: newsTestCommentsArray[0], numberOfReposts: newsTestRepostsArray[0], avatar: user.avatar )
+        let testNews2 = News(id: 2, name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[1], text: newsTestTextArray[1], image: nil, numberOfLikes: newsTestLikesArray[1], numberOfComments: newsTestCommentsArray[1], numberOfReposts: newsTestRepostsArray[1], avatar: user.avatar )
+        let testNews3 = News(id: 3, name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[2], text: newsTestTextArray[2], image: newsTestImageArray[2], numberOfLikes: newsTestLikesArray[2], numberOfComments: newsTestCommentsArray[2], numberOfReposts: newsTestRepostsArray[2], avatar: user.avatar )
         
-        news.append(testNews1)
-        news.append(testNews2)
-        news.append(testNews3)
-        tableView.reloadData()
+        NewsRepository.instance.synsSave(with: testNews1)
+        NewsRepository.instance.synsSave(with: testNews2)
+        NewsRepository.instance.synsSave(with: testNews3)
     }
     
     //MARK: - My methods
@@ -98,6 +98,13 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     func changeBorder(for view: UIView) {
         view.layer.borderWidth = borderWidth
         view.layer.borderColor = borderColour
+    }
+    
+    //спросить как это вообще работает
+    @objc private func refresh() {
+        news = NewsRepository.instance.syncGetAll()
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
     //MARK: - Create User
@@ -139,13 +146,13 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        return NewsRepository.instance.news.count
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellNewsIdentifier) as! NewsTableViewCell
-        let newsModel = news.reversed()[indexPath.row]
+        let newsModel = NewsRepository.instance.news[indexPath.row]
         cell.prepare(with: newsModel)
         return cell
     }
@@ -162,9 +169,10 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         navigationController?.navigationBar.tintColor = UIColor.white
     }
     
+    //MARK: DataTransferProtocol
+    
     func didPressDone(with note: String) {
-   
-        let testNews = News(name: nameLabel.text!, surname: surnameLabel.text!,
+        let newNews = News(id: newsId, name: nameLabel.text!, surname: surnameLabel.text!,
                             date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTestDateArray.count)))],
                             text: note,
                             image: newsTestImageArray[Int(arc4random_uniform(UInt32(newsTestImageArray.count)))],
@@ -172,8 +180,13 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
                             numberOfComments: newsTestCommentsArray[Int(arc4random_uniform(UInt32(newsTestCommentsArray.count)))],
                             numberOfReposts: newsTestRepostsArray[Int(arc4random_uniform(UInt32(newsTestRepostsArray.count)))],
                             avatar: user.avatar)
-        news.append(testNews)
-        tableView.reloadData()
+        newsId += 1
+        NewsRepository.instance.asynSave(with: newNews) { [weak self] (isSaved) in
+            guard let strongSelf = self else {return}
+            if (isSaved) {
+                strongSelf
+            }
+        }
     }
     
     //MARK: - Collection View Methods

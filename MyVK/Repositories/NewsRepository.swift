@@ -8,66 +8,59 @@
 
 import Foundation
 
-class NewsRepository: Repository {
+class NewsRepository: RepositoryProtocol {
     
     typealias T = News
-    private var news = [News]()
+    public var news = [News]()
     
-    private var currentId = 1
     static let instance = NewsRepository()
     
     private init() {}
     
     func synsSave(with news: News) {
-        self.news[currentId] = news
-        currentId = currentId + 1;
+        self.news.append(news)
     }
     
-    func asynSave(with: News, complitionBlock: @escaping (Bool) -> ()) {
-        <#code#>
+    func asynSave(with news: News, complitionBlock: @escaping (Bool) -> ()) {
+        let operationQueue = OperationQueue()
+        operationQueue.addOperation { [weak self] in
+            guard let strongSelf = self else {return}
+            strongSelf.news.append(news)
+            complitionBlock(true)
+        }
+        complitionBlock(false)
     }
     
-    func syncGetAll(with: News) {
-        
+    func syncGetAll() -> [News] {
+        let newsArray = news.sorted(by: {$0.id < $1.id})
+        return newsArray
     }
     
-    func asynGetAll(with: News) {
-        <#code#>
+    func asynGetAll(complitionBlock: @escaping ([News]) -> ()) {
+        let operationQueue = OperationQueue()
+        operationQueue.addOperation { [weak self] in
+            guard let strongSelf = self else {return}
+            let newsArray = strongSelf.syncGetAll()
+            complitionBlock(newsArray)
+        }
     }
     
     func syncSearch(by id: Int) -> News? {
-        if let resultNews = news[id] {
-            return resultNews
+        let resultNews = news[id]
+        return resultNews
+        // вопрос по проверке
+    }
+    
+    func asynSearch(by id: Int, complitionBlock: @escaping (News?) -> ()) {
+        let operationQueue = OperationQueue()
+        operationQueue.addOperation { [weak self] in
+            guard let strongSelf = self else {return}
+            let resultNews = strongSelf.news[id]
+            complitionBlock(resultNews)
         }
-        return nil
+        complitionBlock(nil)
     }
     
-    func synsSave(with: News) {
-        <#code#>
-    }
-    
-    func asynSave(with: News, complitionBlock: @escaping (Bool) -> ()) {
-        <#code#>
-    }
-    
-    func syncGetAll(with: News) {
-        <#code#>
-    }
-    
-    func asynGetAll(with: News) {
-        <#code#>
-    }
-    
-    func syncSearch(with: News) {
-        <#code#>
-    }
-    
-    func asynSearch(with: News, complitionBlock: @escaping (Bool) -> ()) {
-        <#code#>
-    }
-    func asynSearch(with: News, complitionBlock: @escaping (Bool) -> ()) {
-        <#code#>
-    }
-    
+       
 }
 

@@ -57,7 +57,7 @@
 		C7455C8D1F77F01F00589403 /* PresentsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7455C8B1F77F01F00589403 /* PresentsTableViewCell.xib */; };
 		C7455C901F77F03100589403 /* FilesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7455C8E1F77F03100589403 /* FilesTableViewCell.swift */; };
 		C7455C911F77F03100589403 /* FilesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7455C8F1F77F03100589403 /* FilesTableViewCell.xib */; };
-		C75C80B51FA678AE00EF121B /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75C80B41FA678AE00EF121B /* Repository.swift */; };
+		C75C80B51FA678AE00EF121B /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75C80B41FA678AE00EF121B /* RepositoryProtocol.swift */; };
 		C75C80B71FA67A3E00EF121B /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C75C80B61FA67A3E00EF121B /* NewsRepository.swift */; };
 		C77883891F80F3E70077052F /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77883881F80F3E70077052F /* ImageCollectionViewCell.swift */; };
 		C7C8D0541FA75AD000B3AD4E /* VKPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C8D0531FA75AD000B3AD4E /* VKPageViewController.swift */; };
@@ -140,7 +140,7 @@
 		C7455C8B1F77F01F00589403 /* PresentsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PresentsTableViewCell.xib; sourceTree = "<group>"; };
 		C7455C8E1F77F03100589403 /* FilesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesTableViewCell.swift; sourceTree = "<group>"; };
 		C7455C8F1F77F03100589403 /* FilesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilesTableViewCell.xib; sourceTree = "<group>"; };
-		C75C80B41FA678AE00EF121B /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		C75C80B41FA678AE00EF121B /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		C75C80B61FA67A3E00EF121B /* NewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepository.swift; sourceTree = "<group>"; };
 		C77883881F80F3E70077052F /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		C7C8D0531FA75AD000B3AD4E /* VKPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKPageViewController.swift; sourceTree = "<group>"; };
@@ -179,6 +179,7 @@
 		231E8AC91F8E88030059C0A6 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				C75C80B41FA678AE00EF121B /* RepositoryProtocol.swift */,
 				231E8ACA1F8E881F0059C0A6 /* DataTransferProtocol.swift */,
 			);
 			path = Protocols;
@@ -324,7 +325,6 @@
 		C75C80B31FA6786200EF121B /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				C75C80B41FA678AE00EF121B /* Repository.swift */,
 				C75C80B61FA67A3E00EF121B /* NewsRepository.swift */,
 			);
 			path = Repositories;
@@ -335,8 +335,8 @@
 			children = (
 				C7C8D0531FA75AD000B3AD4E /* VKPageViewController.swift */,
 				C7C8D0561FA75BEA00B3AD4E /* FirstPageInPageViewController.swift */,
-				C7C8D05A1FA75C2100B3AD4E /* ThirdPageInPageViewController.swift */,
 				C7C8D05C1FA75C3A00B3AD4E /* SecondPageInPageViewController.swift */,
+				C7C8D05A1FA75C2100B3AD4E /* ThirdPageInPageViewController.swift */,
 			);
 			path = PageViewControllers;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 				C72E70031F76EB1F00720507 /* StatusTableViewCell.swift in Sources */,
 				C7455C901F77F03100589403 /* FilesTableViewCell.swift in Sources */,
 				C7C8D0611FA77CC100B3AD4E /* RegistrationViewController.swift in Sources */,
-				C75C80B51FA678AE00EF121B /* Repository.swift in Sources */,
+				C75C80B51FA678AE00EF121B /* RepositoryProtocol.swift in Sources */,
 				234E058D1F8E90B400FBA411 /* ExtensionImageView.swift in Sources */,
 				C77883891F80F3E70077052F /* ImageCollectionViewCell.swift in Sources */,
 				23B28C631F753BF5001F0A1D /* User.swift in Sources */,

@@ -1,5 +1,5 @@
-//
-//  Repository.swift
+	//
+//  RepositoryProtocol.swift
 //  MyVK
 //
 //  Created by Дамир Зарипов on 29.10.17.
@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol Repository {
+protocol RepositoryProtocol {
     associatedtype T
     
     func synsSave(with: T)
     func asynSave(with: T, complitionBlock: @escaping (Bool) -> ())
-    func syncGetAll(with: T)
-    func asynGetAll(with: T)
-    func syncSearch(with: T)
-    func asynSearch(with: T, complitionBlock: @escaping (Bool) -> ())
+    func syncGetAll() -> [T]
+    func asynGetAll(complitionBlock: @escaping ([T]) -> ())
+    func syncSearch(by id: Int) -> T?
+    func asynSearch(by id: Int, complitionBlock: @escaping (T?) -> ())
  }

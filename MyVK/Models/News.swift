@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 struct News {
+    let id: Int
     let name: String
     let surname: String
     let date: String
