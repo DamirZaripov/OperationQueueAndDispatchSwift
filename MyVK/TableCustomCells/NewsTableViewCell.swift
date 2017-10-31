@@ -22,6 +22,7 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var repostButton: UIButton!
     @IBOutlet weak var newsImageView: UIImageView!
     
+    @IBOutlet weak var constraintLikeToBottom: NSLayoutConstraint!
     @IBOutlet weak var constraintTextToLike: NSLayoutConstraint!
     @IBOutlet weak var constraintTextToImage: NSLayoutConstraint!
     @IBOutlet weak var constraintAvatarToText: NSLayoutConstraint!
@@ -40,6 +41,7 @@ class NewsTableViewCell: UITableViewCell {
         
         if newsModel.text.isEmpty, newsModel.image != nil {
             textInNewsLabel.isHidden = true
+            newsImageView.isHidden = false
             constraintAvatarToText.priority = .defaultLow
             constraintAvatarToImage.priority = .defaultHigh
         }
@@ -48,18 +50,19 @@ class NewsTableViewCell: UITableViewCell {
             textInNewsLabel.isHidden = false
             constraintAvatarToImage.priority = .defaultLow
             constraintAvatarToText.priority = .defaultHigh
+            
+            newsImageView?.isHidden = false
+            constraintTextToLike.priority = .defaultLow
+            constraintTextToImage.priority = .defaultHigh
         }
         
         if !newsModel.text.isEmpty, newsModel.image == nil {
             newsImageView?.isHidden = true
+            textInNewsLabel.isHidden = false
+            //constraintAvatarToText.priority = UILayoutPriority(rawValue: 999)
             constraintTextToImage.priority = .defaultLow
             constraintTextToLike.priority = .defaultHigh
-        }
-        
-        if !newsModel.text.isEmpty, newsModel.image != nil {
-            newsImageView?.isHidden = false
-            constraintTextToLike.priority = .defaultLow
-            constraintTextToImage.priority = .defaultHigh
+            //constraintLikeToBottom.priority = .defaultLow
         }
         
         textInNewsLabel.text = newsModel.text

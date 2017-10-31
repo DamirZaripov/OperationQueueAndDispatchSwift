@@ -165,7 +165,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     func didPressDone(with note: String) {
    
         let testNews = News(name: nameLabel.text!, surname: surnameLabel.text!,
-                            date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTes tDateArray.count)))],
+                            date: newsTestDateArray[Int(arc4random_uniform(UInt32(newsTestDateArray.count)))],
                             text: note,
                             image: newsTestImageArray[Int(arc4random_uniform(UInt32(newsTestImageArray.count)))],
                             numberOfLikes: newsTestLikesArray[Int(arc4random_uniform(UInt32(newsTestLikesArray.count)))],

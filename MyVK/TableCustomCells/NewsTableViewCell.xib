@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -25,11 +25,8 @@
                             <constraint firstAttribute="height" constant="122" id="ozi-YE-9fi"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-62-bUA">
-                        <rect key="frame" x="8" y="76" width="42" height="20.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20.5" id="Eeg-rO-27V"/>
-                        </constraints>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eEg-62-bUA">
+                        <rect key="frame" x="8" y="76" width="296" height="26"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -94,6 +91,7 @@
                     <constraint firstItem="2H5-6v-2p9" firstAttribute="leading" secondItem="Vag-te-1dX" secondAttribute="leading" id="5ww-dL-PhU"/>
                     <constraint firstItem="1lo-QE-WfN" firstAttribute="top" secondItem="5tM-XN-Y9A" secondAttribute="bottom" constant="8" id="H0k-Gz-fBL"/>
                     <constraint firstItem="5tM-XN-Y9A" firstAttribute="top" secondItem="Vag-te-1dX" secondAttribute="top" id="KIJ-wf-eCE"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="eEg-62-bUA" secondAttribute="trailing" constant="8" id="Mc4-ei-LHI"/>
                     <constraint firstItem="TtK-r3-hee" firstAttribute="leading" secondItem="5tM-XN-Y9A" secondAttribute="trailing" constant="21" id="McI-nf-MWw"/>
                     <constraint firstItem="Zkb-6o-iuV" firstAttribute="top" secondItem="fOR-hK-53T" secondAttribute="top" id="OLv-mO-8GQ"/>
                     <constraint firstItem="TtK-r3-hee" firstAttribute="top" secondItem="5tM-XN-Y9A" secondAttribute="top" id="OvH-e9-1f4"/>
@@ -104,9 +102,9 @@
                     <constraint firstItem="fOR-hK-53T" firstAttribute="top" secondItem="2H5-6v-2p9" secondAttribute="bottom" constant="8" id="Y0E-Kh-ezl"/>
                     <constraint firstItem="Vag-te-1dX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="fnf-2J-F6Y"/>
                     <constraint firstItem="fOR-hK-53T" firstAttribute="top" secondItem="eEg-62-bUA" secondAttribute="bottom" priority="750" constant="8" id="g0H-vp-38R"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="fOR-hK-53T" secondAttribute="bottom" constant="3.5" id="jF2-hW-x4f"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="fOR-hK-53T" secondAttribute="bottom" priority="750" constant="3" id="jF2-hW-x4f"/>
                     <constraint firstItem="R1k-z6-7UN" firstAttribute="leading" secondItem="Zkb-6o-iuV" secondAttribute="trailing" constant="18" id="kKZ-jW-gfT"/>
-                    <constraint firstItem="2H5-6v-2p9" firstAttribute="top" secondItem="eEg-62-bUA" secondAttribute="bottom" priority="250" constant="8" id="kf5-vx-sP4"/>
+                    <constraint firstItem="2H5-6v-2p9" firstAttribute="top" secondItem="eEg-62-bUA" secondAttribute="bottom" priority="750" constant="2" id="kf5-vx-sP4"/>
                     <constraint firstItem="2H5-6v-2p9" firstAttribute="top" secondItem="Vag-te-1dX" secondAttribute="bottom" priority="250" constant="8" id="w3A-Xh-dqP"/>
                     <constraint firstItem="fOR-hK-53T" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="wPe-3z-0M4"/>
                     <constraint firstItem="eEg-62-bUA" firstAttribute="top" secondItem="Vag-te-1dX" secondAttribute="bottom" priority="750" constant="8" id="ww0-B7-w5l"/>
@@ -119,6 +117,7 @@
                 <outlet property="commentButton" destination="Zkb-6o-iuV" id="UmK-tj-2ak"/>
                 <outlet property="constraintAvatarToImage" destination="w3A-Xh-dqP" id="shG-P3-Thk"/>
                 <outlet property="constraintAvatarToText" destination="ww0-B7-w5l" id="hI7-5i-L7r"/>
+                <outlet property="constraintLikeToBottom" destination="jF2-hW-x4f" id="y5b-IB-Um4"/>
                 <outlet property="constraintTextToImage" destination="kf5-vx-sP4" id="KgX-E5-9Tb"/>
                 <outlet property="constraintTextToLike" destination="g0H-vp-38R" id="ZEp-o1-gCd"/>
                 <outlet property="dataLabel" destination="1lo-QE-WfN" id="D5n-1F-Eod"/>
