@@ -11,11 +11,14 @@ import UIKit
 class RegistrationViewController: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
-    
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var ageTextField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var registrationScrollView: UIScrollView!
     @IBOutlet weak var surnameTextField: UITextField!
     @IBOutlet weak var repeatPasswordField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +29,12 @@ class RegistrationViewController: UIViewController {
     
     @IBAction func continueButtonPressed(_ sender: Any) {
         
+        var currectInfo = true
+        guard let name = nameTextField.text, !name.isEmpty else {return}
+        guard let surname = surnameTextField.text, !surname.isEmpty else {return}
     }
     
+    // высчитывает длину клавиатуры и позволяет скроллить поля
     @objc func keyboardWillShow(notification:NSNotification){
         var userInfo = notification.userInfo!
         var keyboardFrame:CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
