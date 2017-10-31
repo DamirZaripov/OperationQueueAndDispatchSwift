@@ -70,6 +70,9 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         cellRegistration()
         createTestNews()
         prepareForDynamicCellSize()
+        createRefreshControl()
+        testSynhSearch()
+        testAsynSearch()
     }
     
     func prepareForDynamicCellSize() {
@@ -87,6 +90,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         NewsRepository.instance.synsSave(with: testNews1)
         NewsRepository.instance.synsSave(with: testNews2)
         NewsRepository.instance.synsSave(with: testNews3)
+        news = NewsRepository.instance.syncGetAll()
     }
     
     //MARK: - My methods
@@ -100,7 +104,14 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         view.layer.borderColor = borderColour
     }
     
-    //спросить как это вообще работает
+    //MARK: - Refresh
+    
+    private func createRefreshControl() {
+        refreshControl = UIRefreshControl()
+        refreshControl?.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+    
     @objc private func refresh() {
         news = NewsRepository.instance.syncGetAll()
         self.tableView.reloadData()
@@ -146,13 +157,14 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NewsRepository.instance.news.count
+        return news.count
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellNewsIdentifier) as! NewsTableViewCell
-        let newsModel = NewsRepository.instance.news[indexPath.row]
+        let reverseNews: [News] = news.reversed()
+        let newsModel = reverseNews[indexPath.row]
         cell.prepare(with: newsModel)
         return cell
     }
@@ -184,8 +196,24 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         NewsRepository.instance.asynSave(with: newNews) { [weak self] (isSaved) in
             guard let strongSelf = self else {return}
             if (isSaved) {
-                strongSelf
+                strongSelf.news.append(newNews)
+                DispatchQueue.main.async {
+                    strongSelf.tableView.reloadData()
+                }
             }
+        }
+    }
+    
+    //MARK: - Test search
+    
+    func testSynhSearch() {
+        let news = NewsRepository.instance.syncSearch(by: 3)
+        print("\(String(describing: news?.text))")
+    }
+
+    func testAsynSearch() {
+        NewsRepository.instance.asynSearch(by: 2) { (news) in
+            print("\(String(describing: news?.text))")
         }
     }
     

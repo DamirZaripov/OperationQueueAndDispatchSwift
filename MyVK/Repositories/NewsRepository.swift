@@ -32,8 +32,7 @@ class NewsRepository: RepositoryProtocol {
     }
     
     func syncGetAll() -> [News] {
-        let newsArray = news.sorted(by: {$0.id < $1.id})
-        return newsArray
+        return news
     }
     
     func asynGetAll(complitionBlock: @escaping ([News]) -> ()) {
@@ -46,16 +45,14 @@ class NewsRepository: RepositoryProtocol {
     }
     
     func syncSearch(by id: Int) -> News? {
-        let resultNews = news[id]
-        return resultNews
-        // вопрос по проверке
+        return news.first(where: { $0.id == id })
     }
     
     func asynSearch(by id: Int, complitionBlock: @escaping (News?) -> ()) {
         let operationQueue = OperationQueue()
         operationQueue.addOperation { [weak self] in
             guard let strongSelf = self else {return}
-            let resultNews = strongSelf.news[id]
+            let resultNews: News? = strongSelf.news.first(where: { $0.id == id })
             complitionBlock(resultNews)
         }
         complitionBlock(nil)
