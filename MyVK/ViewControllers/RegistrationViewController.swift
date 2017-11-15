@@ -176,4 +176,8 @@ class RegistrationViewController: UIViewController {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
 }

@@ -23,9 +23,10 @@ class LoginViewController: UIViewController {
     @IBAction func pressedButtonComeIn(_ sender: Any) {
         guard checkInputData() == true else {return}
         guard checkUser() == true else {return}
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileVC") as! NewViewController
-        vc.userEmail = emailUser
-        present(vc, animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let pageNVC = storyboard.instantiateViewController(withIdentifier: "mainNVC") as! UINavigationController
+        guard let pageVC = pageNVC.viewControllers.first as? NewViewController else {return}
+        present(pageNVC, animated: true, completion: nil)
     }
     
     func checkInputData() -> Bool {

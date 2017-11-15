@@ -61,7 +61,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavigationBarColorAndFont()
+         setNavigationBarColorAndFont()
         user = createUser()
         setInfo(for: user)
         roundImage(for: avatarImageView)
@@ -135,7 +135,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         avatarImageView.image = user.avatar
         nameNavigationItem.title = user.name
         nameLabel.text = user.name
-        surnameLabel.text = userEmail
+        surnameLabel.text = user.surname
         ageLabel.text = String(user.age) + years
         cityLabel.text = user.city
     }
