@@ -21,6 +21,12 @@ class NewsRepository: RepositoryProtocol {
         self.news.append(news)
     }
     
+    func syncSave(with news: [News]){
+        for i in 0...news.count - 1 {
+            self.news.append(news[i])
+        }
+    }
+    
     func asynSave(with news: News, complitionBlock: @escaping (Bool) -> ()) {
         let operationQueue = OperationQueue()
         operationQueue.addOperation { [weak self] in

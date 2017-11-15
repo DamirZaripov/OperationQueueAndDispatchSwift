@@ -57,6 +57,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
     let newsSequeIdentifier = "createNewsIdentifier"
     let newsCellClass = "NewsTableViewCell"
     let estimatedNewsCellHeight: CGFloat = 100
+    var userEmail = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,6 +74,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         createRefreshControl()
         testSynhSearch()
         testAsynSearch()
+        print(userEmail)
     }
     
     func prepareForDynamicCellSize() {
@@ -87,9 +89,10 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         let testNews2 = News(id: 2, name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[1], text: newsTestTextArray[1], image: nil, numberOfLikes: newsTestLikesArray[1], numberOfComments: newsTestCommentsArray[1], numberOfReposts: newsTestRepostsArray[1], avatar: user.avatar )
         let testNews3 = News(id: 3, name: nameLabel.text!, surname: surnameLabel.text!, date: newsTestDateArray[2], text: newsTestTextArray[2], image: newsTestImageArray[2], numberOfLikes: newsTestLikesArray[2], numberOfComments: newsTestCommentsArray[2], numberOfReposts: newsTestRepostsArray[2], avatar: user.avatar )
         
-        NewsRepository.instance.synsSave(with: testNews1)
-        NewsRepository.instance.synsSave(with: testNews2)
-        NewsRepository.instance.synsSave(with: testNews3)
+        news.append(testNews1)
+        news.append(testNews2)
+        news.append(testNews3)
+        NewsRepository.instance.syncSave(with: news)
         news = NewsRepository.instance.syncGetAll()
     }
     
@@ -132,7 +135,7 @@ class NewViewController: UITableViewController, DataTransferProtocol, UICollecti
         avatarImageView.image = user.avatar
         nameNavigationItem.title = user.name
         nameLabel.text = user.name
-        surnameLabel.text = user.surname
+        surnameLabel.text = userEmail
         ageLabel.text = String(user.age) + years
         cityLabel.text = user.city
     }
